@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+const { isAuthenticated } = require("../middleware/jwt.middleware");
 
 const Recipe = require("../models/Recipe.model");
 
 
 
 //  POST /api/recipes  -  Creates a new recipe
-router.post("/recipes", (req, res, next) => {
+router.post("/recipes", isAuthenticated, (req, res, next) => {
   const newRecipe = req.body;
 
   Recipe.create(newRecipe)
@@ -20,7 +21,7 @@ router.post("/recipes", (req, res, next) => {
 
 
 //  GET /api/recipes -  Retrieves all of the recipes
-router.get("/recipes", (req, res, next) => {
+router.get("/recipes", isAuthenticated, (req, res, next) => {
   Recipe.find()
     .then((allRecipes) => res.json(allRecipes))
     .catch((err) => {
@@ -31,7 +32,7 @@ router.get("/recipes", (req, res, next) => {
 
 
 //  GET /api/recipes/:recipeId -  Retrieves a specific recipe by id
-router.get("/recipes/:recipeId", (req, res, next) => {
+router.get("/recipes/:recipeId", isAuthenticated, (req, res, next) => {
   const { recipeId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(recipeId)) {
@@ -49,7 +50,7 @@ router.get("/recipes/:recipeId", (req, res, next) => {
 
 
 // PUT  /api/recipes/:recipeId  -  Updates a specific recipe by id
-router.put("/recipes/:recipeId", (req, res, next) => {
+router.put("/recipes/:recipeId", isAuthenticated, (req, res, next) => {
   const { recipeId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(recipeId)) {
@@ -67,7 +68,7 @@ router.put("/recipes/:recipeId", (req, res, next) => {
 
 
 // DELETE  /api/recipes/:recipeId  -  Deletes a specific recipe by id
-router.delete("/recipes/:recipeId", (req, res, next) => {
+router.delete("/recipes/:recipeId", isAuthenticated, (req, res, next) => {
   const { recipeId } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(recipeId)) {
