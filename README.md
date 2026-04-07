@@ -1,9 +1,18 @@
-# Demo AI Powered Apps
+# AI Powered Apps - Demo
 
 A demo of an AI-powered app, using Express + React + Vercel AI SDK.
 
-By the end, you'll have a full-stack app where users can auto-generate recipe instructions using an AI model.
+In this demo, we'll implement a feature that lets users generate cooking instructions with AI. When the user creates a new recipe, they can enter a title, difficulty, and a list of ingredients, then click a button to generate the instructions automatically:
 
+<br />
+<img width="616" height="561" alt="image" src="https://github.com/user-attachments/assets/62e58de7-24e7-4ca0-bdd7-331da6bbe950" />
+<br /><br />
+
+By the end, you'll have a full-stack app where users can auto-generate recipe instructions using an AI model ✨
+
+
+
+<br />
 <br />
 
 
@@ -13,8 +22,6 @@ By the end, you'll have a full-stack app where users can auto-generate recipe in
 The project is organized into two apps within the same repository:
 - `backend/` – an Express API
 - `frontend/` – a React + Vite frontend
-
-In this demo, we'll implement a feature that lets users generate cooking instructions with AI. When creating a new recipe, they can enter a title and a list of ingredients, then click a button to generate the instructions automatically.
 
 We'll use the [Vercel AI SDK](https://ai-sdk.dev/), a library that makes it easy to integrate AI models into web apps.
 
@@ -67,10 +74,11 @@ For this demo, we'll use Mistral, which at the moment provides a free tier with 
 
 If you prefer to use a different AI provider, you can. One advantage of the Vercel AI SDK is its support for multiple providers and models, making it easy to switch between them. For a full list of available providers, see [here](https://ai-sdk.dev/providers/ai-sdk-providers)
 
+<br />
 
-> [!NOTE]
+> [!IMPORTANT]
 >
-> A quick note on security
+> **A quick note on security:**
 >
 > For small projects like this demo, usage costs are usually very low — often just a few cents while testing, and even for a small number of users. That said, it’s still important to protect your API keys and payment details.
 > 
@@ -79,7 +87,8 @@ If you prefer to use a different AI provider, you can. One advantage of the Verc
 > As an extra precaution, if you have to enter your payment details, consider using a virtual payment card with a spending limit. Many banks offer this feature, and it provides a simple safety net while you experiment or run small apps.
 > 
 
-<br />
+<br /><br />
+
 
 
 
@@ -89,7 +98,7 @@ You'll need to install two packages:
 - `npm install ai`
 - `npm install @ai-sdk/mistral` (if you use Mistral)
 
-For the code, you can see an example [here](https://github.com/ironhack-rmt-WD-student-materials/demo-ai-powered-apps/commit/043b13da31bd2588a7d21e2d8d7bd1bc7affdbc6)
+For the backend code, you can see an example [here](https://github.com/ironhack-rmt-WD-student-materials/demo-ai-powered-apps/commit/043b13da31bd2588a7d21e2d8d7bd1bc7affdbc6)
 
 
 <br />
