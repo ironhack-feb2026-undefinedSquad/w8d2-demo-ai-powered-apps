@@ -40,6 +40,71 @@
   background-color: #b45309;
 }
 
+
+.instructions-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.instructions-header label {
+  margin-bottom: 0;
+  line-height: 1;
+}
+
+.instructions-header button {
+  margin-left: auto;
+  line-height: 1;
+  background-color: transparent;
+  color: #b45309;
+  border: 1px solid #d97706;
+}
+
+.ai-button-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ai-button-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #d1d5db;
+  border-top-color: #b45309;
+  border-radius: 50%;
+  animation: button-spiner 0.8s linear infinite;
+}
+
+.instructions-header button:hover {
+  background-color: #fff7ed;
+  color: #92400e;
+  border-color: #b45309;
+}
+
+.instructions-header button:disabled {
+  background-color: transparent;
+  color: #9ca3af;
+  border-color: #d1d5db;
+  cursor: not-allowed;
+}
+
+.instructions-textarea {
+  min-height: 180px;
+}
+
+@keyframes button-spiner{
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
 @media (max-width: 768px) {
   .RecipeListPage {
     padding: 32px 16px;
