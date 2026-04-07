@@ -7,6 +7,8 @@
     "dev": "nodemon server.js"
   },
   "dependencies": {
+    "@ai-sdk/mistral": "^3.0.28",
+    "ai": "^6.0.146",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
