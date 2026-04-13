@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 
-const { generateText } = require("ai");
+const { generateText, generateImage } = require("ai");
 const { createMistral } = require("@ai-sdk/mistral");
+const { createOpenAI } = require("@ai-sdk/openai");
 
 const { isAuthenticated } = require("../middleware/jwt.middleware");
 
@@ -12,6 +13,10 @@ const Recipe = require("../models/Recipe.model");
 
 const mistralProvider = createMistral({
   apiKey: process.env.MISTRAL_API_KEY
+})
+
+const openaiProvider = createOpenAI({
+  apiKey: process.env.OPENAI_API_KEY
 })
 
 
@@ -60,6 +65,33 @@ router.post("/recipes/generate-instructions", isAuthenticated, (req, res, next) 
     .catch((error) => {
       console.error("Error generating recipe instructions:\n", error);
       res.status(500).json({ message: "Error generating recipe instructions." });
+    });
+})
+
+
+// POST /api/recipes/generate-image  -  Generates a recipe image with AI
+router.post("/recipes/generate-image", isAuthenticated, (req, res, next) => {
+  const { title, difficulty, ingredients } = req.body;
+
+  if (!title || !ingredients) {
+    return res.status(400).json({ message: "Please provide title and ingredients." });
+  }
+
+  const formattedIngredients = ingredients.join(", ");
+
+  const prompt = `A professional, appetizing food photography of a ${difficulty || ""} recipe called "${title}" made with ${formattedIngredients}. High-quality cookbook style photo with good lighting and beautiful plating.`;
+
+  generateImage({
+    model: openaiProvider.image("dall-e-3"),
+    prompt,
+    size: "1024x1024",
+  })
+    .then(({ image }) => {
+      res.json({ image: `data:image/png;base64,${image.base64}` });
+    })
+    .catch((error) => {
+      console.error("Error generating recipe image:\n", error);
+      res.status(500).json({ message: "Error generating recipe image." });
     });
 })
 

@@ -103,6 +103,18 @@
   }
 }
 
+.image-preview {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.image-preview img {
+  width: 100%;
+  display: block;
+}
+
 
 
 @media (max-width: 768px) {

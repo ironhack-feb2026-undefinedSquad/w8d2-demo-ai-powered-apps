@@ -10,8 +10,10 @@ function AddRecipe() {
     const [difficulty, setDifficulty] = useState("easy");
     const [ingredients, setIngredients] = useState("");
     const [instructions, setInstructions] = useState("");
+    const [image, setImage] = useState("");
 
     const [isGenerating, setIsGenerating] = useState(false);
+    const [isGeneratingImage, setIsGeneratingImage] = useState(false);
 
     const navigate = useNavigate()
 
@@ -23,7 +25,8 @@ function AddRecipe() {
             title,
             instructions,
             difficulty,
-            ingredients: ingredientsArray
+            ingredients: ingredientsArray,
+            image
         };
 
         // Get the token from the localStorage
@@ -73,6 +76,37 @@ function AddRecipe() {
                 setIsGenerating(false);
             })
         
+    }
+
+
+    const handleGenerateImage = (e) => {
+        e.preventDefault();
+        setIsGeneratingImage(true);
+
+        const ingredientsArray = ingredients.split("\n").filter(ing => ing.trim() !== "");
+
+        const requestBody = {
+            title,
+            difficulty,
+            ingredients: ingredientsArray
+        };
+
+        const storedToken = localStorage.getItem('authToken');
+
+        axios.post(
+            `${API_URL}/api/recipes/generate-image`,
+            requestBody,
+            { headers: { Authorization: `Bearer ${storedToken}` } }
+        )
+            .then((response) => {
+                setImage(response.data.image);
+                setIsGeneratingImage(false);
+            })
+            .catch((e) => {
+                console.log("Error generating image...");
+                console.log(e);
+                setIsGeneratingImage(false);
+            })
     }
 
 
@@ -128,6 +162,22 @@ function AddRecipe() {
                     onChange={(e) => setInstructions(e.target.value)}
                     disabled={isGenerating}
                 />
+
+                <div className="instructions-header">
+                    <label>Image:</label>
+                    <button type="button" onClick={handleGenerateImage} disabled={isGeneratingImage}>
+                        <span className="ai-button-content">
+                            {isGeneratingImage ? <span className="ai-button-spinner" aria-hidden="true" /> : <span aria-hidden="true">✨</span>}
+                            <span>{isGeneratingImage ? "Generating..." : "Generate Image with AI"}</span>
+                        </span>
+                    </button>
+                </div>
+
+                {image && (
+                    <div className="image-preview">
+                        <img src={image} alt="Generated recipe" />
+                    </div>
+                )}
 
                 <button type="submit">Submit</button>
             </form>
